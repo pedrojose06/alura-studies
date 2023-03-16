@@ -1,8 +1,31 @@
-import style from '../Lista.module.scss'
+import { ITarefa } from '../../../types/ITarefa'
+import style from './Item.module.scss'
 
-export default function Item({tarefa, tempo} : {tarefa:string, tempo:string}) {
+interface IProps extends ITarefa{
+    selecionaTarefa: (tarefaSelecionada: ITarefa) => void
+}
+
+export default function Item(
+    {
+        tarefa,
+        tempo,
+        selecionado,
+        completado,
+        id,
+        selecionaTarefa
+    } : IProps) {
+
     return(
-    <li className={style.item}>
+        <li
+            className={`${style.item} ${selecionado ? style.itemSelecionado : ''}`}
+            onClick={() => selecionaTarefa({
+                tarefa,
+                tempo,
+                selecionado,
+                completado,
+                id
+            })
+        }>
         <h3>
             {tarefa}
         </h3>

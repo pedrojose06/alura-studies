@@ -6,10 +6,11 @@ import { ITarefa } from "../../types/ITarefa";
 import { useState, useEffect } from "react";
 
 interface IProps {
-    selecionado: ITarefa | undefined
+    selecionado: ITarefa | undefined,
+    finalizarTarefa: () => void
 }
 
-export default function Cronometro({selecionado} : IProps){
+export default function Cronometro({selecionado, finalizarTarefa} : IProps){
     const [tempo, setTempo] = useState<number>();
     useEffect(() =>{
         if(selecionado?.tempo){
@@ -23,6 +24,7 @@ function regressiva(contador: number = 0) {
             setTempo(contador - 1);
             return regressiva(contador - 1)
         }
+        finalizarTarefa()
     }, 1000)
 }
 
